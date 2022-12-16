@@ -59,13 +59,25 @@ def t1(day_of_week_number: int = 0) -> bool:
     return True if day_of_week_number_m in week_end_days else False
 
 
-def t2():
-    #
+def t2() -> None:
     """
     Напишите программу для. проверки истинности утверждения 
     ¬(X ⋁ Y ⋁ Z) = ¬X ⋀ ¬Y ⋀ ¬Z для всех значений предикат.
+    звучит как скрипт без ввода и вывода...
+    x y z - шагаем по bool
     """
-    return 't2'
+    x = y = z= (True,False)
+    breaker=' | '
+    for move_x in x:
+        for move_y in y:
+            for move_z in z:
+                equation= not( move_x,move_y,move_z)== (not move_x and not
+                 move_y and not move_z)
+                print(f'{move_x}'.ljust(5,' '),end='|')
+                print(f'{move_y}'.ljust(5,' '),end='|')
+                print(f'{move_z}'.ljust(5,' '),end='==')
+                print(equation)
+    return None
 
 
 def t3():
