@@ -92,7 +92,7 @@ def t4():
 
 
 class Point_2D:
-    def __init__(self,ordinat:int,av) -> None:
+    def __init__(self,ordinate:int,abscissa:int) -> None:
         pass
 
 
