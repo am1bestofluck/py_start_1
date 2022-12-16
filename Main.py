@@ -71,11 +71,14 @@ def t2() -> None:
     for move_x in x:
         for move_y in y:
             for move_z in z:
-                equation= not( move_x,move_y,move_z)== (not move_x and not
-                 move_y and not move_z)
-                print(f'{move_x}'.ljust(5,' '),end='|')
-                print(f'{move_y}'.ljust(5,' '),end='|')
-                print(f'{move_z}'.ljust(5,' '),end='==')
+                equation= not( move_x,move_y,move_z)== (not move_x 
+                and not move_y and not move_z)
+                print(f'not ({move_x}'.ljust(10,' '),end=' and ')
+                print(f'{move_y}'.ljust(6,' '),end='and ')
+                print(f'{move_z})'.ljust(7,' '),end=' == ')
+                print(f'not {move_x}'.ljust(9,' '),end=' and ')
+                print(f'not {move_y}'.ljust(9,' '),end=' and ')
+                print(f'not {move_z}'.ljust(9,' '),end=' = ')
                 print(equation)
     return None
 
