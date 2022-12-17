@@ -44,9 +44,9 @@ class Point_2D:
         if self.location[1] == 0:
             return "Точка лежит на оси OY"
         if self.location[0] > 0:
-            return "1" if self.location[1] > 0 else "4"
+            return "Квадрант 1" if self.location[1] > 0 else "Квадрант 4"
         else:
-            return "2" if self.location[1] > 0 else "3"
+            return "Квадрант 2" if self.location[1] > 0 else "Квадрант 3"
 
     def get_distance(point_1: Point_2D, point_2: Point_2D) -> float:
         """Определяем расстояние между двумя точками."""
@@ -96,6 +96,7 @@ def Break() -> None:
     """Чистим консоль, чтобы не переполнять внимание :'D.  """
     input("Enter to proceed.")
     os.system('cls')
+    return None
 
 
 def t1(day_of_week_number: int = 0) -> bool:
@@ -162,6 +163,7 @@ def t3() -> None:
         ordinate=validate_input(accepts_zero=False,
                                 short_note="Input y coordinate"))
     print(point_1.get_quadrant())
+    return None
 
 
 def t4() -> None:
@@ -178,7 +180,7 @@ def t4() -> None:
         abscissa=validate_input(short_note="Input x coordinate (2)"),
         ordinate=validate_input(short_note="Input y coordinate (2)"))
     print(Point_2D.get_distance(point_1=here, point_2=there))
-
+    return None
 
 def main() -> None:
     """
