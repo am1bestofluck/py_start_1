@@ -13,10 +13,12 @@ __all__ = ['Point_2D', 'Break', 'validate_input']
 __version__ = "#1"
 __author__ = "anton6733@gmail.com"
 
+
 import math
 import os
 import sys
 from typing import Tuple
+
 
 class Point_2D:
     """Класс для точки на двухмерной оси координат
@@ -36,8 +38,7 @@ class Point_2D:
         return None 
 
     def GetQuadrant( self) -> str:
-        """Переводим систему координат на русский язык
-        """
+        """Переводим систему координат на русский язык"""
         if self.location[0] == 0:
             return "Точка лежит на оси OX"
         if self.location[1] == 0:
@@ -47,12 +48,13 @@ class Point_2D:
         else:
             return "2" if self.location[1] > 0 else "3"
     
-    def GetDistance(cls, point_1: Point_2D , point_2: Point_2D ) -> float:
+    def GetDistance( point_1: Point_2D , point_2: Point_2D ) -> float:
         """Определяем расстояние между двумя точками"""
-        return math.sqrt(
-            ( abs( point_1.location[0]) + abs( point_2.location[0]) )**2
-            + ( point_1.location[1] + point_2.location[1])**2
-        )
+        return round( ndigits=2, number =
+            math.sqrt(
+            ( point_1.location[0] - point_2.location[0] )**2
+            + ( point_1.location[1] - point_2.location[1])**2
+            ))
 
 
 def validate_input(limits: Tuple[int,]=(- sys.maxsize, sys.maxsize ), 
@@ -76,13 +78,13 @@ def validate_input(limits: Tuple[int,]=(- sys.maxsize, sys.maxsize ),
     while wrong:
         tmp = input(msg)
         multiplier = -1 if tmp.startswith( '-') else 1
-        tmp.removeprefix( '-')
+        tmp=tmp.removeprefix( '-')
         if not tmp.isdigit():
             msg="Input number?"
             continue
         output = int( tmp) * multiplier
         if output not in range( limits[0],limits[1]):
-            msg = f"Between {limits[0]} and {limits[1]}. Try again."
+            msg = f"Between {limits[0]} and {limits[1]-1}. Try again."
         elif not accepts_zero and output == 0:
             msg =" Zero is not accepted. Try again"
         else:
@@ -169,7 +171,7 @@ def t4():
     there=Point_2D( 
         abscissa=validate_input( short_note = "Input x coordinate (2)"),
         ordinate=validate_input( short_note = "Input y coordinate (2)"))
-    print( Point_2D.GetDistance(point_1 = here, point_2= there))
+    print( Point_2D.GetDistance( point_1 = here, point_2= there))
 
 
 def main():
@@ -218,12 +220,11 @@ def main():
                 print( __doc__)
                 break
     else:
-        t1()
-        t2()
-        t3()
-        t4()
+        t1_decorated()
+        t2_decorated()
+        t3_decorated()
+        t4_decorated()
         
-
 
 if __name__=='__main__':
     main()
