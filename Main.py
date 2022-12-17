@@ -11,31 +11,33 @@ __all__ = ['Point_2D','Break']
 __version__ = "#1"
 __author__ = "anton6733@gmail.com"
 
-
+import math
 import os
 import sys
-from typing import Tuple
+from typing import Tuple, Type
 
 
-def validate_input(limits = (- sys.maxsize, sys.maxsize ) ) -> int:
+def validate_input(limits: Tuple[int,]=(- sys.maxsize, sys.maxsize ) ) -> int:
     """~~~Харасим юзера.~~~ 
-    Принимаем день недели с клавиатуры.
     
     wrong - основа костыля TryParse из шарпа
     msg - приглашение ко вводу
     tmp - буфер для инпута
-    output- выводное значение
+    output - выводное значение
+    multiplier - костыль для отрицательных инпутов
     """
     output: int
     tmp: str
-    msg="Input number?"
-    wrong=True
+    msg = "Input number?"
+    wrong = True
     while wrong:
         tmp = input(msg)
+        multiplier = -1 if tmp.startswith( '-') else 1
+        tmp.removeprefix( '-')
         if not tmp.isdigit():
             msg="Input number?"
             continue
-        output = int( tmp)
+        output = int( tmp) * multiplier
         if output not in range( limits[0],limits[1]):
             msg="Between 1 and 7. Try again."
         else:
@@ -48,7 +50,7 @@ def Break():
     os.system('cls')
 
 
-def t1(day_of_week_number: int = 0) -> bool:
+def t1( day_of_week_number: int = 0) -> bool:
     """Напишите программу, которая принимает на вход цифру, 
     обозначающую день недели, и проверяет,
     является ли этот день выходным.
@@ -56,8 +58,8 @@ def t1(day_of_week_number: int = 0) -> bool:
     limits - границы допустимого ввода для проверки
     week_end_days - признак выходного
     """
-    limits_week=( 1,8)
-    week_end_days=( 6,7)
+    limits_week = ( 1,8)
+    week_end_days = ( 6,7)
     day_of_week_number_m = day_of_week_number if ( 
         day_of_week_number in range(limits_week[0],limits_week[1])
         ) else validate_input(limits=limits_week)
@@ -73,12 +75,11 @@ def t2() -> None:
     """
     print()
     x = y = z= (True,False)
-    breaker=' | '
     
     for move_x in x:
         for move_y in y:
             for move_z in z:
-                equation= not( move_x,move_y,move_z)== (not move_x 
+                equation= not( move_x,move_y,move_z) == (not move_x 
                 and not move_y and not move_z)
                 print(f'not ({move_x}'.ljust(10,' '),end=' and ')
                 print(f'{move_y}'.ljust(6,' '),end='and ')
@@ -99,8 +100,34 @@ def t4():
 
 
 class Point_2D:
-    def __init__(self,ordinate:int,abscissa:int) -> None:
-        pass
+    """Класс для точки на двухмерной оси координат
+    """
+
+    def __init__( self, abscissa: int, ordinate: int) -> None:
+        if not isinstance(abscissa,int):
+            ordinate=validate_input()
+        if not isinstance(ordinate,int):
+            ordinate=validate_input()
+        self.location = ( abscissa, ordinate)
+        return None 
+
+    def GetQuadrant( self) -> str:
+        """Переводим систему координат на русский язык...
+        """
+        if self.location[0] == 0:
+            return "Точка лежит на оси OX"
+        if self.location[1] == 0:
+            return "Точка лежит на оси OY"
+        if self.location[0] > 0:
+            return "1" if self.location[1] > 0 else "4"
+        else:
+            return "2" if self.location[1] > 0 else "3"
+    
+    def GetDistance(cls, point_1: 'Point_2D' , point_2: 'Point_2D' ) -> float:
+        return math.sqrt(
+            ( abs( point_1.location[0]) + abs( point_2.location[0]) )**2
+            + ( point_1.location[1] + point_2.location[1])**2
+        )
 
 def main():
 
