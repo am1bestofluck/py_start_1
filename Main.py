@@ -7,7 +7,7 @@ t4 Считает расстояние между точками на плоск
 """
 
 
-__all__ = ['Point_2D']
+__all__ = ['Point_2D','Break']
 __version__ = "#1"
 __author__ = "anton6733@gmail.com"
 
@@ -43,6 +43,11 @@ def validate_input(limits = (- sys.maxsize, sys.maxsize ) ) -> int:
     return output
 
 
+def Break():
+    input("Enter to proceed.")
+    os.system('cls')
+
+
 def t1(day_of_week_number: int = 0) -> bool:
     """Напишите программу, которая принимает на вход цифру, 
     обозначающую день недели, и проверяет,
@@ -66,8 +71,10 @@ def t2() -> None:
     звучит как скрипт без ввода и вывода...
     x y z - шагаем по bool
     """
+    print()
     x = y = z= (True,False)
     breaker=' | '
+    
     for move_x in x:
         for move_y in y:
             for move_z in z:
@@ -95,23 +102,57 @@ class Point_2D:
     def __init__(self,ordinate:int,abscissa:int) -> None:
         pass
 
-
 def main():
+
+    def t1_decorated() -> None:
+        print(t1.__doc__)
+        print(t1())
+        Break()
+        return None
+
+    def t2_decorated() -> None:
+        print(t2.__doc__)
+        print(t2())
+        Break()
+        return None
+
+    def t3_decorated() -> None:
+        print(t3.__doc__)
+        print(t3())
+        Break()
+        return None
+
+    def t4_decorated() -> None:
+        print(t4.__doc__)
+        print(t4())
+        Break()
+        return None
+
     if len( sys.argv ) >1:
+        if "all" in sys.argv[1:]:
+            t1_decorated()
+            t2_decorated()
+            t3_decorated()
+            t4_decorated()
+            sys.exit()
         for arg in sys.argv[1:]:
             if arg == 't1':
-                print(t1())
+                t1_decorated()
             elif arg == 't2':
-                print(t2())
+                t2_decorated()
             elif arg == 't3':
-                print(t3())
+                t3_decorated()
             elif arg == 't4':
-                print(t4())
+                t4_decorated()
             else:
                 print( __doc__)
                 break
     else:
-        print(t1())
+        t1()
+        t2()
+        t3()
+        t4()
+        
 """
 
 
@@ -120,7 +161,8 @@ t3() Напишите программу, которая принимает на
 точки (X и Y), причём X ≠ 0 и Y ≠ 0 и выдаёт номер четверти плоскости, 
 в которой находится эта точка (или на какой оси она находится).
 
-t4() Напишите программу, которая принимает на вход координаты двух точек и находит расстояние между ними в 2D пространстве.
+t4() Напишите программу, которая принимает на вход координаты двух 
+точек и находит расстояние между ними в 2D пространстве.
 
 """
 
